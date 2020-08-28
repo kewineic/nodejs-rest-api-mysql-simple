@@ -83,7 +83,19 @@ class Attendance {
       if(err){
         res.status(400).json(err);
       }else{
-        res.status(200).json(result);
+        res.status(200).json({...values, id});
+      }
+    });
+  }
+
+  delete(id, res){
+    const sql = 'DELETE FROM Atendimentos WHERE id=?';
+
+    connection.query(sql, id, (err, result) => {
+      if(err){
+        res.status(400).json(err);
+      }else{
+        res.status(201).json({id});
       }
     });
   }
