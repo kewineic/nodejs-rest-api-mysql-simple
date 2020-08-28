@@ -21,5 +21,11 @@ module.exports = app => {
     const values = req.body;
 
     Attendance.update(id, values, res);
-  })
+  });
+
+  app.delete('/atendimentos/:id', (req, res) => {
+    const id = Number(req.params.id);
+
+    Attendance.delete(id, res);
+  });
 }
