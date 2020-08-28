@@ -1,14 +1,25 @@
+const Attendance = require('../models/Attendance');
+
 module.exports = app => {
-  app.get('/', (req, res) => {
-    res.send({
-      casa: {
-        numero: 1
-      }
-    });
+  app.get('/atendimentos', (req, res) => {
+    Attendance.list(res)
   });
 
-  app.post('/', (req, res) => {
-    console.log(req.body);
-    res.send('YAAAY');
+  app.get('/atendimentos/:id', (req, res) => {
+    const id = Number(req.params.id);
+    Attendance.getId(id, res);
   });
+
+  app.post('/atendimentos', (req, res) => {
+    const attendance = req.body;
+
+    Attendance.add(attendance, res);
+  });
+
+  app.patch('/atendimentos/:id', (req, res) => {
+    const id = Number(req.params.id);
+    const values = req.body;
+
+    Attendance.update(id, values, res);
+  })
 }
